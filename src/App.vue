@@ -1,26 +1,84 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="mainContent">
+    <div class="top" v-if="mobile">
+      <Header :mobile="mobile"></Header>
+      <description :mobile="mobile"></description>
+    </div>
+    <Header v-if="!mobile" :mobile="mobile"></Header>
+    <description v-if="!mobile" :mobile="mobile"></description>
+    <about class="about"></about>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import about from './components/about.vue'
+import Header from './components/header.vue'
+import description from './components/description.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data(){
+    return{
+      mobile:false,
+      width:null,
+    }
+  },created(){
+    this.checkMobile();
+    window.addEventListener('resize',()=>{
+      this.checkMobile();
+    })
+    console.log(this.mobile)
+  },
+  components:{
+    about,
+    Header,
+    description,
+  },
+  methods:{
+    checkMobile:function() {
+      this.width=window.innerWidth
+      if(this.width<=750){
+        this.mobile=true
+      }
+      else{
+        this.mobile=false
+      }
+    }
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body,html{
+  width: 100%;
+  height: 100%;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#app{
+  width: 100%;
+  height: 100%;
+}
+.mainContent{
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+@media (max-width:750px){
+  .mainContent{
+    grid-template-columns:1fr;
+    grid-template-rows: .9fr 1fr;
+  }
+  .top{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
 }
 </style>
