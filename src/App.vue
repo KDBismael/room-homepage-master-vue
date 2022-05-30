@@ -51,7 +51,9 @@ export default {
 <style>
 body,html{
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  max-height: 600px;
+  font-family: 'League Spartan', sans-serif;
 }
 *{
   margin: 0;

@@ -1,5 +1,5 @@
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
-    ? '/room-homepage-master/'
+    ? '/room-homepage-master-vue/'
     : '/'
 }
